@@ -87,11 +87,11 @@
 
   // لو الموبايل ده بعت قبل كدا، اعرض رسالة إن التنبيه اتبعت ومتسمحش بإرسال تاني
   const DAY = 24*60*60*1000;
-  function sentToday(){ return Date.now() - lastSent() < DAY; }
+  function sentToday(){ return new Date(lastSent()).toDateString() === new Date().toDateString(); }
   if (sentToday()){
     document.getElementById("form").style.display = "none";
     document.getElementById("done").style.display = "block";
-    document.querySelector("#done .sub").textContent = "انت بعت تنبيه النهارده من الموبايل ده، وصاحب العربية وصله. تقدر تبعت تاني بعد 24 ساعة.";
+    document.querySelector("#done .sub").textContent = "انت بعت تنبيه النهارده من الموبايل ده، وصاحب العربية وصله. تقدر تبعت تاني بعد الساعة 12 بالليل.";
   }
 
   opts.forEach(b => b.addEventListener("click", () => {
@@ -109,7 +109,7 @@
     if (!chosen) return;
     if (sentToday()){
       msg.className = "msg err";
-      msg.textContent = "انت بعت تنبيه النهارده من الموبايل ده. تقدر تبعت تاني بعد 24 ساعة.";
+      msg.textContent = "انت بعت تنبيه النهارده من الموبايل ده. تقدر تبعت تاني بعد الساعة 12 بالليل.";
       sendBtn.disabled = true;
       return;
     }
